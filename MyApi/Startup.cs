@@ -5,11 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyApi.Data;
+using MyApi.Services;
+using MyApi.Services.Impl;
 
 namespace MyApi
 {
     public class Startup
     {
+        private const string CORS_POLICY_NAME = "MyPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,12 +25,32 @@ namespace MyApi
         {
             services.AddControllers();
 
+            #region CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy(CORS_POLICY_NAME, policy =>
+                {
+                    policy
+                    .WithOrigins("http://127.0.0.1:3000", "http://localhost:3000", "http://3.25.118.30:3000")  //allow client ip
+                    .WithExposedHeaders("x-pagination", "location")                  //allow header
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+            #endregion
+
             services.AddDbContext<MyDbContext>(option =>
             {
                 option.UseSqlite("Data Source=routine.db");
             });
 
             services.AddMemoryCache();
+
+            services.AddScoped<IUserInformationService, UserInformationService>();
+
+            services.AddScoped<IVerificationCodeHelper, VerificationCodeHelper>();
+
+            services.AddScoped<IEmailHelper, EmailHelper>();
         }
 
         
@@ -37,6 +60,10 @@ namespace MyApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            #region CORS
+            app.UseCors(CORS_POLICY_NAME);//添加 Cors 跨域中间件
+            #endregion
 
             app.UseRouting();
 
