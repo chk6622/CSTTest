@@ -4,20 +4,17 @@ using Microsoft.AspNetCore.TestHost;
 using MyApi;
 using MyApi.Dto;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace MyTest.TestControllers
 {
-    public class UserInformationControllerTest
+    public class UserInformationControllerTest:BaseTest
     {
         private readonly HttpClient client = null;
-        public UserInformationControllerTest()
+        public UserInformationControllerTest(ProgramInitFixture programInitFixture) : base(programInitFixture)
         {
             var server = new TestServer(WebHost.CreateDefaultBuilder().UseStartup<Startup>());
             client = server.CreateClient();

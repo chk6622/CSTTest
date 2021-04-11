@@ -31,7 +31,7 @@ namespace MyApi
                 c.AddPolicy(CORS_POLICY_NAME, policy =>
                 {
                     policy
-                    .WithOrigins("http://127.0.0.1:3000", "http://localhost:3000", "http://3.25.118.30:3000")  //allow client ip
+                    .WithOrigins("http://127.0.0.1", "http://localhost", "http://ec2-13-238-219-247.ap-southeast-2.compute.amazonaws.com", "http://127.0.0.1:80", "http://localhost:80", "http://ec2-13-238-219-247.ap-southeast-2.compute.amazonaws.com:80")  //allow client ip
                     .WithExposedHeaders("x-pagination", "location")                  //allow header
                     .AllowAnyHeader()
                     .AllowAnyMethod();

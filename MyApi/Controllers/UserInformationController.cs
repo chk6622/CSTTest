@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyApi.Dto;
+using MyApi.Services;
 
 namespace MyApi.Controllers
 {
@@ -12,18 +8,45 @@ namespace MyApi.Controllers
     [ApiController]
     public class UserInformationController : ControllerBase
     {
+        private readonly IUserInformationService userInformationService = null;
+        private readonly IVerificationCodeHelper verificationCodeHelper = null;
+
+        public UserInformationController(IUserInformationService userInformationService, IVerificationCodeHelper verificationCodeHelper)
+        {
+            this.userInformationService = userInformationService;
+            this.verificationCodeHelper = verificationCodeHelper;
+        }
+
+
+
         [HttpPost("AddUserInformation", Name = nameof(AddUserInformation))]
         public ActionResult<UserInformationDto> AddUserInformation(UserInformationDto userInformationDto)
         {
 
-            throw new Exception();
+            var userInformation = this.userInformationService.AddUserInformation(userInformationDto);
+
+            if (userInformation == null)
+            {
+                return BadRequest(new { message = "Please input the correct verification code." });
+            }
+
+            return CreatedAtRoute(nameof(AddUserInformation), new { Id = userInformationDto.Id }, userInformation);
         }
+
+
 
         [HttpGet("getVerificationCode")]
         public ActionResult<string> GetVerificationCode([FromQuery] VerificationCodeDto verificationCodeDto)
         {
-            throw new Exception();
-            
+
+            string vCode = this.verificationCodeHelper.getVerificationCode(verificationCodeDto.Email);
+
+            if (string.IsNullOrWhiteSpace(vCode))
+            {
+                return BadRequest();
+            }
+            //throw new System.Exception("Server error!");
+            return Ok(new { message = "The verification code has been sent to your email box." });
         }
 
 
@@ -36,7 +59,14 @@ namespace MyApi.Controllers
         [HttpGet("getVerificationCodeTest")]
         public ActionResult<string> GetVerificationCode(string email)
         {
-            throw new Exception();
+            string vCode = this.verificationCodeHelper.getVerificationCode(email);
+
+            if (string.IsNullOrWhiteSpace(vCode))
+            {
+                return BadRequest();
+            }
+
+            return Ok(vCode);
         }
     }
 }
