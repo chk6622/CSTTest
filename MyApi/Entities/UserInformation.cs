@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyApi.Entities
 {
+    /// <summary>
+    /// User information model
+    /// </summary>
     public class UserInformation
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

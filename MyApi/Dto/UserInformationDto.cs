@@ -2,6 +2,9 @@
 
 namespace MyApi.Dto
 {
+    /// <summary>
+    /// User information data transfer object
+    /// </summary>
     public class UserInformationDto
     {
         public int Id { set; get; }

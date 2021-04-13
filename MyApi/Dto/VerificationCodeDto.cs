@@ -2,6 +2,9 @@
 
 namespace MyApi.Dto
 {
+    /// <summary>
+    /// verification code data transfer object
+    /// </summary>
     public class VerificationCodeDto
     {
         [StringLength(50, ErrorMessage = "{0} length must be between {2} and {1}", MinimumLength = 2)]

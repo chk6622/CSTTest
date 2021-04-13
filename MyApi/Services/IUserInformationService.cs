@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 
 namespace MyApi.Services
 {
+    /// <summary>
+    /// User information service
+    /// </summary>
     public interface IUserInformationService
     {
         /// <summary>
         /// Add user information
         /// </summary>
-        /// <param name="userInformationDto">user information dto</param>
+        /// <param name="userInformationDto">user information you want to add to the database.</param>
         /// <returns>UserInformation</returns>
         UserInformation AddUserInformation(UserInformationDto userInformationDto);
 

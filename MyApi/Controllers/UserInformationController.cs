@@ -18,7 +18,11 @@ namespace MyApi.Controllers
         }
 
 
-
+        /// <summary>
+        /// Add user information end point
+        /// </summary>
+        /// <param name="userInformationDto">the user information data transfer object</param>
+        /// <returns>ActionResult</returns>
         [HttpPost("AddUserInformation", Name = nameof(AddUserInformation))]
         public ActionResult<UserInformationDto> AddUserInformation(UserInformationDto userInformationDto)
         {
@@ -34,7 +38,11 @@ namespace MyApi.Controllers
         }
 
 
-
+        /// <summary>
+        /// Get verification code end point
+        /// </summary>
+        /// <param name="verificationCodeDto">verification code data transfer object</param>
+        /// <returns>ActionResult</returns>
         [HttpGet("getVerificationCode")]
         public ActionResult<string> GetVerificationCode([FromQuery] VerificationCodeDto verificationCodeDto)
         {

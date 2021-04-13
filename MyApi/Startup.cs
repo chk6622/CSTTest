@@ -44,13 +44,13 @@ namespace MyApi
                 option.UseSqlite("Data Source=routine.db");
             });
 
-            services.AddMemoryCache();
+            services.AddMemoryCache();  //add memory cache service
 
-            services.AddScoped<IUserInformationService, UserInformationService>();
+            services.AddScoped<IUserInformationService, UserInformationService>();  //add user information service
 
-            services.AddScoped<IVerificationCodeHelper, VerificationCodeHelper>();
+            services.AddScoped<IVerificationCodeHelper, VerificationCodeHelper>();  //add verification code helper service
 
-            services.AddScoped<IEmailHelper, EmailHelper>();
+            services.AddScoped<IEmailHelper, EmailHelper>();  //add email sending service 
         }
 
         

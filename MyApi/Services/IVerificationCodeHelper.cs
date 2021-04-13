@@ -2,6 +2,9 @@
 
 namespace MyApi.Services
 {
+    /// <summary>
+    /// Verification code service
+    /// </summary>
     public interface IVerificationCodeHelper
     {
         /// <summary>
@@ -16,8 +19,8 @@ namespace MyApi.Services
         /// <summary>
         /// check whether the verification code maps the email
         /// </summary>
-        /// <param name="verificationCode"></param>
-        /// <param name="email"></param>
+        /// <param name="verificationCode">the verification code</param>
+        /// <param name="email">the email address</param>
         /// <returns>map => true, or => false</returns>
         bool CheckVerificationCode(string verificationCode, string email);
 
